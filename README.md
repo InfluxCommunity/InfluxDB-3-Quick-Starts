@@ -8,14 +8,14 @@ This repository will cover the basics of setting up InfluxDB IOx and Grafana or 
 ## Setup
 Please make sure you have the following prerequisites before you begin:
 - [Docker](https://docs.docker.com/get-docker/)
-- [InfluxDB IOx]()
-- [Env file]()
-- [Grafana flighsql plugin]()
+- [InfluxDB IOx](https://github.com/InfluxCommunity/InfluxDB-IOx-Quick-Starts#influxdb-iox)
+- [Env file](https://github.com/InfluxCommunity/InfluxDB-IOx-Quick-Starts#env-file)
+- [Grafana flighsql plugin](https://github.com/InfluxCommunity/InfluxDB-IOx-Quick-Starts#grafana-flighsql-plugin)
 
-# InfluxDB IOx
+### InfluxDB IOx
 To get started, you will need to create an InfluxDB IOx account. If you don't already have an account, you can sign up for free [here](https://cloud2.influxdata.com/signup). Once you have an account, you can create a new organization and bucket to store your data. You can find instructions on how to do this [here](https://docs.influxdata.com/influxdb/cloud/organizations/buckets/create-bucket/).
 
-# Env file
+### Env file
 To connect Grafana to InfluxDB IOx, you will need to create an env file. With the top directory create a file called `.env`:
 ```bash
 touch .env
@@ -27,7 +27,7 @@ export INFLUX_TOKEN=
 export INFLUX_ORG=
 export INFLUX_BUCKET=
 ```
-# Grafana flighsql plugin
+### Grafana flighsql plugin
 To connect Grafana to InfluxDB IOx, you will need to install the Grafana flighsql plugin. To do this follow these instructions [here](https://docs.influxdata.com/influxdb/cloud-iox/visualize-data/grafana/).
 
 Once you have downloaded the plugin, unzip the folder and copy the `influxdata-flightsql-datasource` directory to the `plugins` directory in the top directory of this repository.
