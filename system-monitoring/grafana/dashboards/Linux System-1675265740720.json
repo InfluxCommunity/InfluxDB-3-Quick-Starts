@@ -1,0 +1,1400 @@
+{
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "9.3.4"
+    },
+    {
+      "type": "datasource",
+      "id": "influxdata-flightsql-datasource",
+      "name": "FlightSQL",
+      "version": "0.1.0"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "table",
+      "name": "Table",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "influxdata-flightsql-datasource",
+        "uid": "FlightSQL"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 2,
+        "x": 0,
+        "y": 0
+      },
+      "id": 9,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "9.3.4",
+      "targets": [
+        {
+          "columns": [
+            {
+              "value": "host"
+            }
+          ],
+          "datasource": {
+            "type": "influxdata-flightsql-datasource",
+            "uid": "FlightSQL"
+          },
+          "format": "table",
+          "groupBy": "",
+          "key": "Q-70dc3f76-b5b2-4e82-a11b-caafae4d4f96-0",
+          "limit": "",
+          "orderBy": "",
+          "queryText": "SELECT distinct (host) FROM cpu \nWHERE $__timeRange(time)",
+          "rawEditor": true,
+          "rawQuery": true,
+          "refId": "A",
+          "table": "cpu",
+          "wheres": [
+            {
+              "value": ""
+            }
+          ]
+        }
+      ],
+      "title": "Host List",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "influxdata-flightsql-datasource",
+        "uid": "FlightSQL"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 4,
+        "x": 2,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.3.4",
+      "targets": [
+        {
+          "columns": [
+            {
+              "value": "uptime"
+            }
+          ],
+          "datasource": {
+            "type": "influxdata-flightsql-datasource",
+            "uid": "FlightSQL"
+          },
+          "format": "table",
+          "groupBy": "",
+          "limit": "",
+          "orderBy": "",
+          "queryText": "SELECT  \n  selector_last(uptime, time)['time'] AS time,\n  selector_last(uptime, time)['value'] AS uptime\nFROM system \nWHERE host='${linux_host}' AND time BETWEEN '${__from:date:iso}' AND '${__to:date:iso}'",
+          "rawEditor": true,
+          "rawQuery": true,
+          "refId": "A",
+          "table": "system",
+          "wheres": [
+            {
+              "value": ""
+            }
+          ]
+        }
+      ],
+      "title": "System Uptime",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdata-flightsql-datasource",
+        "uid": "FlightSQL"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 6,
+        "y": 0
+      },
+      "id": 4,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.3.4",
+      "targets": [
+        {
+          "columns": [
+            {
+              "value": "uptime"
+            }
+          ],
+          "datasource": {
+            "type": "influxdata-flightsql-datasource",
+            "uid": "FlightSQL"
+          },
+          "format": "table",
+          "groupBy": "",
+          "limit": "",
+          "orderBy": "",
+          "queryText": "SELECT  \n  selector_last(load1, time)['time'] AS time,\n  selector_last(load1, time)['value'] AS load1\nFROM system \nWHERE host='${linux_host}'  AND $__timeRange(time)",
+          "rawEditor": true,
+          "rawQuery": true,
+          "refId": "A",
+          "table": "system",
+          "wheres": [
+            {
+              "value": ""
+            }
+          ]
+        }
+      ],
+      "title": "System Load",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdata-flightsql-datasource",
+        "uid": "FlightSQL"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 9,
+        "y": 0
+      },
+      "id": 5,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.3.4",
+      "targets": [
+        {
+          "columns": [
+            {
+              "value": "uptime"
+            }
+          ],
+          "datasource": {
+            "type": "influxdata-flightsql-datasource",
+            "uid": "FlightSQL"
+          },
+          "format": "table",
+          "groupBy": "",
+          "limit": "",
+          "orderBy": "",
+          "queryText": "SELECT  \n  selector_last(total, time)['time'] AS time,\n  selector_last(total, time)['value'] / 1024 / 1024 / 1024 As total\nFROM mem \nWHERE host='${linux_host}' AND $__timeRange(time)",
+          "rawEditor": true,
+          "rawQuery": true,
+          "refId": "A",
+          "table": "system",
+          "wheres": [
+            {
+              "value": ""
+            }
+          ]
+        }
+      ],
+      "title": "Total Memory",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdata-flightsql-datasource",
+        "uid": "FlightSQL"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 12,
+        "y": 0
+      },
+      "id": 3,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.3.4",
+      "targets": [
+        {
+          "columns": [
+            {
+              "value": "uptime"
+            }
+          ],
+          "datasource": {
+            "type": "influxdata-flightsql-datasource",
+            "uid": "FlightSQL"
+          },
+          "format": "table",
+          "groupBy": "",
+          "limit": "",
+          "orderBy": "",
+          "queryText": "SELECT  \n  selector_last(n_cpus, time)['time'] AS time,\n  selector_last(n_cpus, time)['value'] AS n_cpus\nFROM system \nWHERE host='${linux_host}' AND $__timeRange(time)",
+          "rawEditor": true,
+          "rawQuery": true,
+          "refId": "A",
+          "table": "system",
+          "wheres": [
+            {
+              "value": ""
+            }
+          ]
+        }
+      ],
+      "title": "nCPUs",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdata-flightsql-datasource",
+        "uid": "FlightSQL"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 15,
+        "y": 0
+      },
+      "id": 18,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.3.4",
+      "targets": [
+        {
+          "columns": [
+            {
+              "value": "uptime"
+            }
+          ],
+          "datasource": {
+            "type": "influxdata-flightsql-datasource",
+            "uid": "FlightSQL"
+          },
+          "format": "table",
+          "groupBy": "",
+          "limit": "",
+          "orderBy": "",
+          "queryText": "SELECT  \n  selector_last(total_threads, time)['time'] AS time,\n  selector_last(total_threads, time)['value'] AS total_threads\nFROM processes \nWHERE host='${linux_host}' AND $__timeRange(time)",
+          "rawEditor": true,
+          "rawQuery": true,
+          "refId": "A",
+          "table": "system",
+          "wheres": [
+            {
+              "value": ""
+            }
+          ]
+        }
+      ],
+      "title": "Total Threads",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdata-flightsql-datasource",
+        "uid": "FlightSQL"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 6,
+        "x": 18,
+        "y": 0
+      },
+      "id": 15,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "columns": [
+            {
+              "value": "used_percent"
+            }
+          ],
+          "datasource": {
+            "type": "influxdata-flightsql-datasource",
+            "uid": "FlightSQL"
+          },
+          "format": "table",
+          "groupBy": "",
+          "limit": "",
+          "orderBy": "",
+          "queryText": "SELECT\n  $__dateBin(time) ,\n  avg(used_percent) AS 'average used_percent'\nFROM mem\nWHERE host='${linux_host}' AND $__timeRange(time)\nGROUP BY time\n\n\n",
+          "rawEditor": true,
+          "rawQuery": true,
+          "refId": "A",
+          "table": "mem",
+          "wheres": [
+            {
+              "value": ""
+            }
+          ]
+        }
+      ],
+      "title": "Memory Usage",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdata-flightsql-datasource",
+        "uid": "FlightSQL"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "axisSoftMax": 100,
+            "axisSoftMin": 0,
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 5,
+        "x": 2,
+        "y": 3
+      },
+      "id": 10,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "columns": [
+            {
+              "value": "used_percent"
+            }
+          ],
+          "datasource": {
+            "type": "influxdata-flightsql-datasource",
+            "uid": "FlightSQL"
+          },
+          "format": "table",
+          "groupBy": "",
+          "limit": "",
+          "orderBy": "",
+          "queryText": "\nSELECT\n  $__dateBin(time) ,\n  avg(used_percent) AS 'average used_percent'\nFROM disk\nWHERE host='${linux_host}' AND $__timeRange(time)\nGROUP BY time",
+          "rawEditor": true,
+          "rawQuery": true,
+          "refId": "A",
+          "table": "mem",
+          "wheres": [
+            {
+              "value": ""
+            }
+          ]
+        }
+      ],
+      "title": "Disk Usage",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdata-flightsql-datasource",
+        "uid": "FlightSQL"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "axisSoftMax": 100,
+            "axisSoftMin": 0,
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 5,
+        "x": 7,
+        "y": 3
+      },
+      "id": 11,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "columns": [
+            {
+              "value": "used_percent"
+            }
+          ],
+          "datasource": {
+            "type": "influxdata-flightsql-datasource",
+            "uid": "FlightSQL"
+          },
+          "format": "table",
+          "groupBy": "",
+          "limit": "",
+          "orderBy": "",
+          "queryText": "\n\n\nSELECT\n  $__dateBin(time) ,\n  avg(usage_user) AS 'usage_user',\n  avg(usage_system) AS 'usage_system',\n  avg(usage_idle) AS 'usage_idle'\nFROM cpu\nWHERE cpu='cpu-total' AND  $__timeRange(time)\nGROUP BY time",
+          "rawEditor": true,
+          "rawQuery": true,
+          "refId": "A",
+          "table": "mem",
+          "wheres": [
+            {
+              "value": ""
+            }
+          ]
+        }
+      ],
+      "title": "CPU Usage",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdata-flightsql-datasource",
+        "uid": "FlightSQL"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 6,
+        "x": 12,
+        "y": 3
+      },
+      "id": 16,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "columns": [
+            {
+              "value": "used_percent"
+            }
+          ],
+          "datasource": {
+            "type": "influxdata-flightsql-datasource",
+            "uid": "FlightSQL"
+          },
+          "format": "table",
+          "groupBy": "",
+          "limit": "",
+          "orderBy": "",
+          "queryText": "\n\n\nSELECT\n  $__dateBin(time) ,\n  avg(load1) AS 'load1',\n  avg(load5) AS 'load5',\n  avg(load15) AS 'load15'\nFROM system\nWHERE host='${linux_host}'  AND  $__timeRange(time)\nGROUP BY time",
+          "rawEditor": true,
+          "rawQuery": true,
+          "refId": "A",
+          "table": "mem",
+          "wheres": [
+            {
+              "value": ""
+            }
+          ]
+        }
+      ],
+      "title": "System Load",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdata-flightsql-datasource",
+        "uid": "FlightSQL"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 6,
+        "x": 0,
+        "y": 10
+      },
+      "id": 13,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.3.4",
+      "targets": [
+        {
+          "columns": [
+            {
+              "value": "used_percent"
+            }
+          ],
+          "datasource": {
+            "type": "influxdata-flightsql-datasource",
+            "uid": "FlightSQL"
+          },
+          "format": "table",
+          "groupBy": "",
+          "limit": "",
+          "orderBy": "",
+          "queryText": "SELECT time, (read_bytes_delta_v / delta_t_ns) * 1000000000 as read_bytes, (write_bytes_delta_v / delta_t_ns) * 1000000000 as write_bytes\nFROM\n(\nSELECT\n  (lag(read_bytes, 1) OVER (ORDER BY time))  - read_bytes  as read_bytes_delta_v,\n   (lag(write_bytes, 1) OVER (ORDER BY time))  - write_bytes  as write_bytes_delta_v,\n  (lag(cast(time as bigint), 1) OVER (ORDER BY time)) - cast (time as bigint) as delta_t_ns,\n  time\nFROM\ndiskio\nWHERE host='${linux_host}' AND $__timeRange(time)\n) as sq\n",
+          "rawEditor": true,
+          "rawQuery": true,
+          "refId": "A",
+          "table": "mem",
+          "wheres": [
+            {
+              "value": ""
+            }
+          ]
+        }
+      ],
+      "title": "DiskIO",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdata-flightsql-datasource",
+        "uid": "FlightSQL"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 6,
+        "x": 6,
+        "y": 10
+      },
+      "id": 14,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "columns": [
+            {
+              "value": "used_percent"
+            }
+          ],
+          "datasource": {
+            "type": "influxdata-flightsql-datasource",
+            "uid": "FlightSQL"
+          },
+          "format": "table",
+          "groupBy": "",
+          "limit": "",
+          "orderBy": "",
+          "queryText": "\nSELECT time, (bytes_recv_delta_v / delta_t_ns) * 1000000000 as read_bytes, (bytes_sent_delta_v / delta_t_ns) * 1000000000 as bytes_sent\nFROM\n(\nSELECT\n  (lag(bytes_recv, 1) OVER (ORDER BY time))  - bytes_recv  as bytes_recv_delta_v,\n  (lag(bytes_sent, 1) OVER (ORDER BY time))  - bytes_sent  as bytes_sent_delta_v,\n  (lag(cast(time as bigint), 1) OVER (ORDER BY time)) - cast (time as bigint) as delta_t_ns,\n  time\nFROM\nnet\nWHERE host='${linux_host}' AND $__timeRange(time)\n) as sq",
+          "rawEditor": true,
+          "rawQuery": true,
+          "refId": "A",
+          "table": "mem",
+          "wheres": [
+            {
+              "value": ""
+            }
+          ]
+        }
+      ],
+      "title": "Network",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdata-flightsql-datasource",
+        "uid": "FlightSQL"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 6,
+        "x": 12,
+        "y": 10
+      },
+      "id": 12,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "columns": [
+            {
+              "value": "used_percent"
+            }
+          ],
+          "datasource": {
+            "type": "influxdata-flightsql-datasource",
+            "uid": "FlightSQL"
+          },
+          "format": "table",
+          "groupBy": "",
+          "limit": "",
+          "orderBy": "",
+          "queryText": "SELECT\n  $__dateBin(time),\n  avg(running) AS 'running',\n  avg(blocked) AS 'blocked',\n  avg(idle) AS 'idle',\n  avg(unknown) AS 'unknown'\nFROM processes\nWHERE host='${linux_host}' AND $__timeRange(time)\nGROUP BY time ",
+          "rawEditor": true,
+          "rawQuery": true,
+          "refId": "A",
+          "table": "mem",
+          "wheres": [
+            {
+              "value": ""
+            }
+          ]
+        }
+      ],
+      "title": "Processes",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdata-flightsql-datasource",
+        "uid": "FlightSQL"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 6,
+        "x": 18,
+        "y": 10
+      },
+      "id": 17,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "columns": [
+            {
+              "value": "used_percent"
+            }
+          ],
+          "datasource": {
+            "type": "influxdata-flightsql-datasource",
+            "uid": "FlightSQL"
+          },
+          "format": "table",
+          "groupBy": "",
+          "limit": "",
+          "orderBy": "",
+          "queryText": "SELECT\n  $__dateBin(time),\n  avg(total) AS 'total',\n  avg(used) AS 'used'\nFROM swap\nWHERE host='${linux_host}' AND $__timeRange(time)\nGROUP BY time ",
+          "rawEditor": true,
+          "rawQuery": true,
+          "refId": "A",
+          "table": "mem",
+          "wheres": [
+            {
+              "value": ""
+            }
+          ]
+        }
+      ],
+      "title": "Swap",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 37,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "a83b45afd48f",
+          "value": "a83b45afd48f"
+        },
+        "description": "Please enter the host name you wish to query",
+        "hide": 0,
+        "label": "linux_host",
+        "name": "linux_host",
+        "options": [
+          {
+            "selected": true,
+            "text": "<ENTER HOST>",
+            "value": "<ENTER HOST>"
+          }
+        ],
+        "query": "<ENTER HOST>",
+        "skipUrlSync": false,
+        "type": "textbox"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-15m",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Linux System",
+  "uid": "mQwXy40Vz",
+  "version": 11,
+  "weekStart": ""
+}
