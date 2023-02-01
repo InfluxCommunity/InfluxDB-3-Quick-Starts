@@ -1,9 +1,9 @@
 # InfluxDB IOx Quick Starts
-Welcome to the "InfluxDB IOx Quick Starts" repository! This repository is dedicated to providing easy to follow tutorials on how to integrate InfluxDB IOx with Grafana. InfluxDB IOx is a powerful time-series database solution and when paired with Grafana, a popular open-source visualization platform, you can create beautiful and informative dashboards to better visualize and understand your data.
+Welcome to the "InfluxDB IOx Quick Starts" repository! This repository is dedicated to providing easy to follow tutorials on how to integrate InfluxDB IOx with Grafana and Superset. InfluxDB IOx is a powerful time-series database solution and when paired with Grafana or Superset, both popular open-source visualization platform, you can create beautiful and informative dashboards to better visualize and understand your data.
 
-This repository will cover the basics of setting up InfluxDB IOx and Grafana, how to connect them and how to query data from InfluxDB IOx in Grafana. Whether you are new to InfluxDB IOx or an experienced user, this repository is designed to help you get up and running with InfluxDB IOx and Grafana quickly and easily.
+This repository will cover the basics of setting up InfluxDB IOx and Grafana or Superset, how to connect them and how to query data from InfluxDB IOx. Whether you are new to InfluxDB IOx or an experienced user, this repository is designed to help you get up and running with InfluxDB IOx, Grafana and Superset quickly and easily.
 
-So, if you're ready to dive into the world of time-series data visualization with InfluxDB IOx and Grafana, let's get started!
+# Grafana
 
 ## Setup
 Please make sure you have the following prerequisites before you begin:
