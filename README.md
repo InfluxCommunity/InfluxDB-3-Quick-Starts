@@ -41,6 +41,6 @@ source .env
 ```
 Navigate to the quick start you would like to run and run the following command:
 ```bash
-docker-compose up -d
+docker-compose -f system-monitoring/docker-compose.yml up -d
 ```
 This will start Grafana server and Telegraf. Once the quick start is running, you can access Grafana at `localhost:3000`. You can log in with the default username and password: `admin` and `admin`.
