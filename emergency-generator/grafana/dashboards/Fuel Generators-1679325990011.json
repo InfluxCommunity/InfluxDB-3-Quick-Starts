@@ -1,0 +1,617 @@
+{
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "panel",
+      "id": "gauge",
+      "name": "Gauge",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "geomap",
+      "name": "Geomap",
+      "version": ""
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "9.4.3"
+    },
+    {
+      "type": "datasource",
+      "id": "influxdata-flightsql-datasource",
+      "name": "FlightSQL",
+      "version": "0.1.6"
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "influxdata-flightsql-datasource",
+        "uid": "FlightSQL"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-red",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 50
+              },
+              {
+                "color": "#EAB839",
+                "value": 200
+              },
+              {
+                "color": "green",
+                "value": 500
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 15,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 3,
+      "options": {
+        "basemap": {
+          "config": {},
+          "name": "Layer 0",
+          "type": "default"
+        },
+        "controls": {
+          "mouseWheelZoom": true,
+          "showAttribution": true,
+          "showDebug": false,
+          "showMeasure": false,
+          "showScale": false,
+          "showZoom": true
+        },
+        "layers": [
+          {
+            "config": {
+              "showLegend": true,
+              "style": {
+                "color": {
+                  "field": "fuel",
+                  "fixed": "dark-green"
+                },
+                "opacity": 0.4,
+                "rotation": {
+                  "fixed": 0,
+                  "max": 360,
+                  "min": -360,
+                  "mode": "mod"
+                },
+                "size": {
+                  "fixed": 5,
+                  "max": 15,
+                  "min": 2
+                },
+                "symbol": {
+                  "fixed": "img/icons/marker/circle.svg",
+                  "mode": "fixed"
+                },
+                "textConfig": {
+                  "fontSize": 12,
+                  "offsetX": 0,
+                  "offsetY": 0,
+                  "textAlign": "center",
+                  "textBaseline": "middle"
+                }
+              }
+            },
+            "name": "Fuel Level",
+            "tooltip": true,
+            "type": "markers"
+          }
+        ],
+        "tooltip": {
+          "mode": "details"
+        },
+        "view": {
+          "allLayers": true,
+          "id": "north-america",
+          "lat": 40,
+          "lon": -100,
+          "zoom": 4
+        }
+      },
+      "pluginVersion": "9.4.3",
+      "targets": [
+        {
+          "columns": [
+            {
+              "value": "fuel"
+            }
+          ],
+          "datasource": {
+            "type": "influxdata-flightsql-datasource",
+            "uid": "FlightSQL"
+          },
+          "format": "table",
+          "groupBy": "",
+          "limit": "",
+          "orderBy": "",
+          "queryText": "\n select \n selector_last(fuel, time)['time'] AS time,\n selector_last(fuel, time)['value'] AS fuel,\n\"generatorID\",\n selector_last(lat, time)['value'] AS lat,\nselector_last(lon, time)['value'] AS lon\nFROM \"genData\" \nWHERE  $__timeRange(time) \n group by 3\n\n\n\n ",
+          "rawEditor": true,
+          "rawQuery": true,
+          "refId": "A",
+          "table": "\"genData\"",
+          "wheres": [
+            {
+              "value": ""
+            }
+          ]
+        }
+      ],
+      "title": "Fuel Levels",
+      "transformations": [],
+      "type": "geomap"
+    },
+    {
+      "datasource": {
+        "type": "influxdata-flightsql-datasource",
+        "uid": "FlightSQL"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "dashed"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 50
+              },
+              {
+                "color": "#EAB839",
+                "value": 200
+              },
+              {
+                "color": "green",
+                "value": 500
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.4.3",
+      "targets": [
+        {
+          "columns": [
+            {
+              "value": "fuel"
+            }
+          ],
+          "datasource": {
+            "type": "influxdata-flightsql-datasource",
+            "uid": "FlightSQL"
+          },
+          "format": "table",
+          "groupBy": "",
+          "limit": "",
+          "orderBy": "",
+          "queryText": " select $__dateBin(time),\n avg(fuel) as fuel,\n \"generatorID\"\n FROM \"genData\" \nWHERE  $__timeRange(time) \ngroup by 3, 1\norder by 1\n ",
+          "rawEditor": true,
+          "rawQuery": true,
+          "refId": "A",
+          "table": "\"genData\"",
+          "wheres": [
+            {
+              "value": ""
+            }
+          ]
+        }
+      ],
+      "title": "Fuel Levels",
+      "transformations": [
+        {
+          "id": "partitionByValues",
+          "options": {
+            "fields": [
+              "generatorID"
+            ]
+          }
+        }
+      ],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdata-flightsql-datasource",
+        "uid": "FlightSQL"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 50
+              },
+              {
+                "color": "dark-orange",
+                "value": 75
+              },
+              {
+                "color": "dark-red",
+                "value": 90
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 12,
+        "y": 7
+      },
+      "id": 7,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "9.4.3",
+      "targets": [
+        {
+          "columns": [
+            {
+              "value": "fuel"
+            }
+          ],
+          "datasource": {
+            "type": "influxdata-flightsql-datasource",
+            "uid": "FlightSQL"
+          },
+          "format": "table",
+          "groupBy": "",
+          "limit": "",
+          "orderBy": "",
+          "queryText": "\n select \n selector_last(load, time)['value'] AS load\nFROM \"genData\" \nWHERE  $__timeRange(time) AND \"generatorID\" = 'generator1'\n\n\n\n ",
+          "rawEditor": true,
+          "rawQuery": true,
+          "refId": "A",
+          "table": "\"genData\"",
+          "wheres": [
+            {
+              "value": ""
+            }
+          ]
+        }
+      ],
+      "title": "Generator 1 - Load",
+      "transformations": [],
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdata-flightsql-datasource",
+        "uid": "FlightSQL"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 50
+              },
+              {
+                "color": "dark-orange",
+                "value": 75
+              },
+              {
+                "color": "dark-red",
+                "value": 90
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 18,
+        "y": 7
+      },
+      "id": 9,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "9.4.3",
+      "targets": [
+        {
+          "columns": [
+            {
+              "value": "fuel"
+            }
+          ],
+          "datasource": {
+            "type": "influxdata-flightsql-datasource",
+            "uid": "FlightSQL"
+          },
+          "format": "table",
+          "groupBy": "",
+          "limit": "",
+          "orderBy": "",
+          "queryText": "\n select \n selector_last(load, time)['value'] AS load\nFROM \"genData\" \nWHERE  $__timeRange(time) AND \"generatorID\" = 'generator1'\n\n\n\n ",
+          "rawEditor": true,
+          "rawQuery": true,
+          "refId": "A",
+          "table": "\"genData\"",
+          "wheres": [
+            {
+              "value": ""
+            }
+          ]
+        }
+      ],
+      "title": "Generator 1 - Load",
+      "transformations": [],
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdata-flightsql-datasource",
+        "uid": "FlightSQL"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 50
+              },
+              {
+                "color": "dark-orange",
+                "value": 75
+              },
+              {
+                "color": "dark-red",
+                "value": 90
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 12,
+        "y": 15
+      },
+      "id": 8,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "9.4.3",
+      "targets": [
+        {
+          "columns": [
+            {
+              "value": "fuel"
+            }
+          ],
+          "datasource": {
+            "type": "influxdata-flightsql-datasource",
+            "uid": "FlightSQL"
+          },
+          "format": "table",
+          "groupBy": "",
+          "limit": "",
+          "orderBy": "",
+          "queryText": "\n select \n selector_last(load, time)['value'] AS load\nFROM \"genData\" \nWHERE  $__timeRange(time) AND \"generatorID\" = 'generator3'\n\n\n\n ",
+          "rawEditor": true,
+          "rawQuery": true,
+          "refId": "A",
+          "table": "\"genData\"",
+          "wheres": [
+            {
+              "value": ""
+            }
+          ]
+        }
+      ],
+      "title": "Generator 3 - Load",
+      "transformations": [],
+      "type": "gauge"
+    }
+  ],
+  "refresh": "",
+  "revision": 1,
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-15m",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Fuel Generators",
+  "uid": "CSkdbiBVk",
+  "version": 1,
+  "weekStart": ""
+}
