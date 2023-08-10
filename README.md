@@ -29,11 +29,6 @@ export INFLUX_BUCKET=
 ```
 **Note: make sure to specify your `INFLUX_HOST` without the protocal like so: `us-east-1-1.aws.cloud2.influxdata.com`**
 
-### Grafana flighsql plugin
-To connect Grafana to InfluxDB IOx, you will need to install the Grafana flighsql plugin. To do this follow these instructions [here](https://docs.influxdata.com/influxdb/cloud-iox/visualize-data/grafana/).
-
-Once you have downloaded the plugin, unzip the folder and copy the `influxdata-flightsql-datasource` directory to the `plugins` directory in the top directory of this repository.
-
 ## Run
 To run a quick start, make sure to first source the env file:
 ```bash
