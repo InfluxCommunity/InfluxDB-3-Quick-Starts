@@ -5,14 +5,12 @@ services:
     ports:
       - 3000:3000
     environment:
-      - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource
-      - GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=influxdata-flightsql-datasource
+      - GF_INSTALL_PLUGINS=influxdata-flightsql-datasource
       - INFLUX_HOST=${INFLUX_HOST}
       - INFLUX_TOKEN=${INFLUX_TOKEN}
       - INFLUX_ORG=${INFLUX_ORG}
       - INFLUX_BUCKET=generators
     volumes: 
-      - ../plugins/influxdata-flightsql-datasource:/var/lib/grafana/plugins/influxdata-flightsql-datasource
       - ./grafana/datasources:/etc/grafana/provisioning/datasources
       - ./grafana/dashboards:/etc/grafana/provisioning/dashboards
       - grafana:/var/lib/grafana/
